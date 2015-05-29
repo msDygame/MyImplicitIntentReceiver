@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * ToDo:通過隱式Intent開啟Service
+ * 通過隱式Intent開啟Service:
  * Android不建議在AndroidManifest.xml的<service>標籤中使用<intent-filter>的，即不建議使用隱式Intent啟動Service；
  * 而且常用的隱式Intent（比如android.intent.action.VIEW）也無法將Intent喚醒，這些Intent通常都是Activity Action，即只能用於Activity。
  * 若要直接使用這些Activity Action的Intent開啟Service而不影響到前台程序，通過隱式Intent開啟Service，只需要繞一個小彎就可以了，
@@ -27,7 +27,7 @@ import android.widget.Button;
  * AndroidStudio的Activity，繼承自 ActionBarActivity的類必須指定固定的集中Theme風格，而這些 Theme 風格是需要導入V7中的 appcompat LIB庫工程，
  * 編譯後再引用才能引用使用。然後不能再用@android:style/Theme.NoDisplay這個了。要改成@style/Theme.AppCompat。然後隱式Intent時,畫面會一閃....
  * 還有一種方法 把ActionBarActivity換成Activity...
- * ToDo:通過broadcastReceiver開啟Service
+ * 通過broadcastReceiver開啟Service:
  * 收廣播
  */
 public class MainActivity extends ActionBarActivity
@@ -35,7 +35,6 @@ public class MainActivity extends ActionBarActivity
     protected MyService mBoundService;
     protected boolean mIsBound = false;
     protected static String TAG = "" ;
-    protected boolean IsImplicitIntent = false ;//test for Implicit Intent to StartService
     protected Button testButton ;
     protected Button quitButton ;
     MyReceiver pReceiver;//BroadcastReceiver
@@ -47,16 +46,9 @@ public class MainActivity extends ActionBarActivity
         MyCrashHandler pCrashHandler = MyCrashHandler.getInstance();
         pCrashHandler.init(getApplicationContext());
         TAG = pCrashHandler.getTag() ;
-        // Test for Implicit Intent
-        if (IsImplicitIntent == true)
-        {
-            Intent service = new Intent(MainActivity.this, NickyService.class);
-            startService(service);
-            finish();
-        }
         //在註冊廣播接收:
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.dygame.myimplicitintentservicesample.broadcast");//為BroadcastReceiver指定action，使之用於接收同action的廣播
+        intentFilter.addAction("com.dygame.broadcast");//為BroadcastReceiver指定action，使之用於接收同action的廣播
         pReceiver = new MyReceiver();
         registerReceiver(pReceiver, intentFilter);
         //
@@ -69,7 +61,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View v)
             {
-                Log.d(TAG, "Start Service");
+                Log.d(TAG, "test this activity and startService");
                 Intent service = new Intent(MainActivity.this, NickyService.class);
                 startService(service);
             }
@@ -143,11 +135,8 @@ public class MainActivity extends ActionBarActivity
     protected void onDestroy()
     {
         super.onDestroy();
-        if (IsImplicitIntent == false)
-        {
-            Intent intent = new Intent(MainActivity.this, NickyService.class);
-            stopService(intent);
-        }
+        Intent intent = new Intent(MainActivity.this, NickyService.class);
+        stopService(intent);
         //註銷
         unregisterReceiver(pReceiver);
     }
@@ -186,7 +175,7 @@ public class MainActivity extends ActionBarActivity
             {
                 Log.i(TAG, "You've got mail");
             }
-            if (action.equals("com.dygame.myimplicitintentservicesample.broadcast"))
+            if (action.equals("com.dygame.broadcast"))
             {
                 Log.d(TAG, "Broadcast Recevie and Start Service");
                 Intent service = new Intent(MainActivity.this, NickyService.class);
@@ -197,6 +186,11 @@ public class MainActivity extends ActionBarActivity
                     String sMessage = bundle.getString(TAG);
                     Log.i(TAG, "broadcast receiver action:" + action + "=" + sMessage);
                 }
+            }
+            if (action.equals("com.dygame.unknown"))
+            {
+                Intent service = new Intent(MainActivity.this, NickyService.class);
+                stopService(service);
             }
         }
     }

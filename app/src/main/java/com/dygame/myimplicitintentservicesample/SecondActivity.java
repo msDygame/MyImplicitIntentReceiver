@@ -9,7 +9,6 @@ import android.view.MenuItem;
 
 public class SecondActivity extends ActionBarActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 /**
  * Created by Administrator on 2015/4/16.
- * Todo : 做一個有StartService + BindServie 的 Service
+ * 做一個有StartService + BindServie 的 Service
  * 1.呼叫Context的bindService()會連結Service，若Service未開啟就會自動開啟。
  * 2.開啟Service後會呼叫onCreate()但是不會呼叫onStartCommand()
  * 3.呼叫onBind()並傳回IBinder物件

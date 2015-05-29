@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * Created by Administrator on 2015/5/18.
- * ToDo: Start Service/Stop Service Sample , 在背景每隔一秒Log目前的時間
+ * Start Service/Stop Service Sample , 在背景每隔一秒Log目前的時間
  * Nicky = 勝利者(?
  */
 public class NickyService extends Service

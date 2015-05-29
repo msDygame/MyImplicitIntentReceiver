@@ -8,8 +8,8 @@
         android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED" />
-            <action android:name="com.dygame.myimplicitintentservicesample.broadcast" />
-
+            <action android:name="com.dygame.broadcast" />
+            <action android:name="com.dygame.unknown" />
             <category android:name="android.intent.category.DEFAULT" />
         </intent-filter>
     </receiver>
@@ -28,7 +28,7 @@
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="com.dygame.myimplicitintent" />
+                <action android:name="com.dygame.implicitintent" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,7 +40,7 @@
             android:label="@string/title_activity_second"
             android:theme="@style/Theme.AppCompat" >  <!-- android:theme="@android:style/Theme.NoDisplay" >  @style/AppTheme -->
             <intent-filter>
-                <action android:name="com.dygame.myimplicitintent" />
+                <action android:name="com.dygame.implicitintent" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
